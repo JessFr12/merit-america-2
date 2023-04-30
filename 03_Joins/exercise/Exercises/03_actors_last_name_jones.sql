@@ -3,8 +3,8 @@
 -- (48 rows)
 
 SELECT DISTINCT person_name, title
-FROM person
-JOIN movie_actor ON person.person_id = movie_actor.actor_id
-JOIN movie ON movie_actor.movie_id = movie.movie_id
-WHERE person_name LIKE '%Jones'
+FROM person, movie_actor, movie
+WHERE person.person_id = movie_actor.actor_id
+AND movie_actor.movie_id = movie.movie_id
+AND person_name LIKE '% Jones'
 ORDER BY person_name, title;
