@@ -3,8 +3,8 @@
 -- (73 rows)
 
 SELECT DISTINCT movie.title, person_name
-FROM movie
-JOIN person ON movie.director_id = person.person_id
-JOIN movie_actor ON person.person_id = movie_actor.actor_id
-WHERE actor_id = director_id
+FROM movie, person, movie_actor
+WHERE movie.director_id = person.person_id
+AND person.person_id = movie_actor.actor_id
+AND movie_actor.movie_id = movie.movie_id
 ORDER BY movie.title;
