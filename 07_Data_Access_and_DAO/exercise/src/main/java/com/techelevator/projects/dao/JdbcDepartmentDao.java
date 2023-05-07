@@ -34,11 +34,22 @@ public class JdbcDepartmentDao implements DepartmentDao {
 
 	@Override
 	public List<Department> getAllDepartments() {
-		return new ArrayList<>();
+		List<Department> departments = new ArrayList<>();
+		String sql = "SELECT department_id, name FROM department " +
+				"ORDER BY name;";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+		while (results.next()) {
+			Department department = mapRowToDepartment(results);
+			departments.add(department);
+		}
+		return departments;
 	}
 
 	@Override
 	public void updateDepartment(Department updatedDepartment) {
+		String sql = "UPDATE department SET name = ? " +
+				"WHERE department_id = ?;";
+		jdbcTemplate.update(sql,updatedDepartment.getName(),updatedDepartment.getId());
 
 	}
 
