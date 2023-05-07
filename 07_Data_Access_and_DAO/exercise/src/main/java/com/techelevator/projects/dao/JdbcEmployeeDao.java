@@ -64,15 +64,32 @@ public class JdbcEmployeeDao implements EmployeeDao {
 
 	@Override
 	public void addEmployeeToProject(int projectId, int employeeId) {
+		String sql = "INSERT INTO project_employee (project_id, employee_id) " +
+				"VALUES (?, ?);";
+		jdbcTemplate.update(sql, projectId, employeeId);
+
 	}
 
 	@Override
 	public void removeEmployeeFromProject(int projectId, int employeeId) {
+		String sql = "DELETE FROM project_employee " +
+				"WHERE project_id = ? AND employee_id = ?;";
+
+		jdbcTemplate.update(sql, projectId, employeeId);
 	}
 
 	@Override
 	public List<Employee> getEmployeesWithoutProjects() {
-		return new ArrayList<>();
+		List<Employee> employeesNoProject = new ArrayList<>();
+
+		String sql = "SELECT * FROM employee " +
+				"JOIN project_employee ON employee.employee_id = project_employee.employee_id";
+
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+		while(results.next()) {
+			employeesNoProject.add(mapRowToEmployee(results));
+		}
+		return employeesNoProject;
 	}
 
 	private Employee mapRowToEmployee(SqlRowSet rowSet) {
