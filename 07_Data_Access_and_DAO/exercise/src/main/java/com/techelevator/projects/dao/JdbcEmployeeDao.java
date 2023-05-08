@@ -83,7 +83,8 @@ public class JdbcEmployeeDao implements EmployeeDao {
 		List<Employee> employeesNoProject = new ArrayList<>();
 
 		String sql = "SELECT * FROM employee " +
-				"JOIN project_employee ON employee.employee_id = project_employee.employee_id";
+				"LEFT JOIN project_employee ON employee.employee_id = project_employee.employee_id" +
+				" WHERE project_id IS NULL";
 
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
 		while(results.next()) {
