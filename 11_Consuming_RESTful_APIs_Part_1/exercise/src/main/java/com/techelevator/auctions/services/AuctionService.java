@@ -1,5 +1,6 @@
 package com.techelevator.auctions.services;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.web.client.RestTemplate;
 
 import com.techelevator.auctions.model.Auction;
@@ -24,7 +25,9 @@ public class AuctionService {
 
     public Auction[] getAuctionsMatchingTitle(String title) {
         // call api here
-        return null;
+        Auction[] auctionsTitleMatch = restTemplate.getForObject(API_BASE_URL + "?title=" + title,
+                Auction[].class);
+        return auctionsTitleMatch;
     }
 
     public Auction[] getAuctionsAtOrBelowPrice(double price) {

@@ -1,5 +1,7 @@
 package com.techelevator.auctions.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Auction {
 
     private int id;
