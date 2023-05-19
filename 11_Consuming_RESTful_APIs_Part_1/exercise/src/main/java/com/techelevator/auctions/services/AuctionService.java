@@ -18,7 +18,8 @@ public class AuctionService {
 
     public Auction getAuction(int id) {
         // call api here
-        return null;
+        Auction auction = restTemplate.getForObject(API_BASE_URL + id, Auction.class);
+        return auction;
     }
 
     public Auction[] getAuctionsMatchingTitle(String title) {
