@@ -35,12 +35,34 @@ public class AuctionService {
 
     public boolean update(Auction updatedAuction) {
         // place code here
-        return false;
+
+        try {
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            HttpEntity<Auction> request = new HttpEntity<>(updatedAuction, headers);
+
+            restTemplate.put(API_BASE_URL, updatedAuction.getId(), request);
+            return true;
+        } catch (ResourceAccessException e) {
+            System.out.println(e.getMessage());
+            return false;
+        } catch (RestClientResponseException e) {
+            System.out.println(e.getRawStatusCode());
+            return false;
+        }
     }
 
     public boolean delete(int auctionId) {
         // place code here
-        return false;
+        try {
+            restTemplate.delete(API_BASE_URL + auctionId);
+            return true;
+        } catch (ResourceAccessException e) {
+            System.out.println(e.getMessage());
+            return false;
+        } catch (RestClientResponseException e) {
+            System.out.println(e.getRawStatusCode());
+            return false;
+        }
     }
 
     public Auction[] getAllAuctions() {
