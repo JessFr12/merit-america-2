@@ -40,7 +40,7 @@ public class AuctionService {
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<Auction> request = new HttpEntity<>(updatedAuction, headers);
 
-            restTemplate.put(API_BASE_URL, updatedAuction.getId(), request);
+            restTemplate.put(API_BASE_URL + updatedAuction.getId(), request);
             return true;
         } catch (ResourceAccessException e) {
             System.out.println(e.getMessage());
