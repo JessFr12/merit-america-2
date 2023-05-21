@@ -14,10 +14,22 @@ public class AuctionService {
 
     public static String API_BASE_URL = "http://localhost:3000/auctions/";
     private RestTemplate restTemplate = new RestTemplate();
+    private HttpHeaders headers = new HttpHeaders();
+
 
 
     public Auction add(Auction newAuction) {
         // place code here
+
+        try {
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            HttpEntity<Auction> entity = new HttpEntity<>(newAuction, headers);
+
+            Auction createdAuction = restTemplate.postForObject(API_BASE_URL, entity, Auction.class);
+            return createdAuction;
+        } catch (ResourceAccessException e) {
+            System.out.println(e.getMessage());
+        }
         return null;
     }
 
