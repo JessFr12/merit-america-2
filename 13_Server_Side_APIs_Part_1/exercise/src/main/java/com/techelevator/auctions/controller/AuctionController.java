@@ -23,4 +23,10 @@ public class AuctionController {
         return auctions;
     }
 
+    @RequestMapping(method = RequestMethod.POST)
+    public Auction create(@RequestBody Auction auction) {
+        dao.create(auction);
+        return auction;
+    }
+
 }
