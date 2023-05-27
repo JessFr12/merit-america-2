@@ -31,6 +31,10 @@ public class AuctionController {
             return dao.searchByTitleAndPrice(titleLike, currentBidLte);
         }
     }
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public Auction get(@PathVariable int id) {
+        return  dao.get(id);
+    }
 
     @RequestMapping(method = RequestMethod.POST)
     public Auction create(@RequestBody Auction auction) {
